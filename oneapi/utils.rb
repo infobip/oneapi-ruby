@@ -23,6 +23,10 @@ module JSONUtils
             return nil
         end
 
+        if field.instance_of? Symbol
+            field = field.to_s
+        end
+
         if field.include?('|') then
             field_parts = field.split('|')
             for field_part in field_parts

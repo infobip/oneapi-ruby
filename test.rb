@@ -45,4 +45,16 @@ class OneApiTest < Test::Unit::TestCase
         assert_equal(sms_exception.text, 'Request URI missing required component(s): ')
     end
  
+    def test_exception_object_array
+        json = '{"deliveryInfoList":{"deliveryInfo":[{"address":null,"deliveryStatus":"DeliveryUncertain1"},{"address":null,"deliveryStatus":"DeliveryUncertain2"}],"resourceURL":"http://api.parseco.com/1/smsmessaging/outbound/TODO/requests/28drx7ypaqr/deliveryInfos"}}'
+
+        object = Conversions.from_json(DeliveryInfoList, json, nil)
+
+        assert(object)
+        assert(object.delivery_info)
+        assert_equal(2, object.delivery_info.length)
+        assert_equal("DeliveryUncertain1", object.delivery_info[0].delivery_status)
+        assert_equal("DeliveryUncertain2", object.delivery_info[1].delivery_status)
+    end
+
 end

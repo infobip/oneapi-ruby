@@ -51,9 +51,12 @@ end
 
 class DeliveryInfo < OneApiModel
 
-    oneapi_attr_accessor :delivery_status, FieldConversionRule.new('deliveryStatus')
+    oneapi_attr_accessor :delivery_status, FieldConversionRule.new(:deliveryStatus)
 
-    def initialize
-    end
+end
+
+class DeliveryInfoList < OneApiModel
+
+    oneapi_attr_accessor :delivery_info, ObjectArrayConversionRule.new(DeliveryInfo, json_field_name='deliveryInfoList.deliveryInfo')
 
 end

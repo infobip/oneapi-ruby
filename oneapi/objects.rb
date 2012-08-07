@@ -25,6 +25,55 @@ class FieldConversionRule
 
 end
 
+
+class ObjectFieldConverter < FieldConversionRule
+
+    def initialize(classs, json_field_name=nil)
+        super(json_field_name)
+        @classs = classs
+    end
+
+    def from_json(value)
+        if value == nil
+            return nil
+        end
+
+        return Conversions.from_json(@classs, value, is_error=nil)
+    end
+
+    def to_json(value)
+        # TODO
+    end
+
+end
+
+class ObjectArrayConversionRule < FieldConversionRule
+
+    def initialize(classs, json_field_name=nil)
+        super(json_field_name)
+        @classs = classs
+    end
+
+    def from_json(values)
+        if not values
+            return []
+        end
+
+        result = []
+
+        for value in values
+            result.push(Conversions.from_json(@classs, value, is_error=nil))
+        end
+
+        return result
+    end
+
+    def to_json(value)
+        # TODO
+    end
+
+end
+
 class LastPartOfUrlFieldConversionRule < FieldConversionRule
 
     def initialize(json_field_name=nil)
