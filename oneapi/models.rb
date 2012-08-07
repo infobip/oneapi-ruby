@@ -1,3 +1,8 @@
+=begin
+require 'rubygems'
+require 'ruby-debug'
+=end
+
 require 'oneapi/objects'
 
 # ----------------------------------------------------------------------------------------------------
@@ -6,9 +11,9 @@ require 'oneapi/objects'
 
 class OneApiAuthentication < OneApiModel
 
-	oneapi_attr_accessor :username, FieldConversionRule.new()
-	oneapi_attr_accessor :password, FieldConversionRule.new()
-	oneapi_attr_accessor :ibsso_token, FieldConversionRule.new('login.ibAuthCookie | TODO')
+    oneapi_attr_accessor :username, FieldConversionRule.new()
+    oneapi_attr_accessor :password, FieldConversionRule.new()
+    oneapi_attr_accessor :ibsso_token, FieldConversionRule.new('login.ibAuthCookie | TODO')
     oneapi_attr_accessor :authenticated, FieldConversionRule.new()
     oneapi_attr_accessor :verified, FieldConversionRule.new('login.verified | TODO')
 

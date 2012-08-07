@@ -1,3 +1,8 @@
+=begin
+require 'rubygems'
+require 'ruby-debug'
+=end
+
 require 'oneapi/utils'
 
 class FieldConversionRule
