@@ -35,6 +35,7 @@ module JSONUtils
                     return value
                 end
             end
+            return nil
         end
 
         result = nil
