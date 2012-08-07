@@ -1,62 +1,66 @@
 =begin
-require 'rubygems'
-require 'ruby-debug'
+require_relative 'rubygems'
+require_relative 'ruby-debug'
 =end
 
-require 'oneapi/objects'
+require_relative 'objects'
 
 # ----------------------------------------------------------------------------------------------------
 # Generic:
 # ----------------------------------------------------------------------------------------------------
 
-class OneApiAuthentication < OneApiModel
+module OneApi
 
-    oneapi_attr_accessor :username, FieldConversionRule.new()
-    oneapi_attr_accessor :password, FieldConversionRule.new()
-    oneapi_attr_accessor :ibsso_token, FieldConversionRule.new('login.ibAuthCookie | TODO')
-    oneapi_attr_accessor :authenticated, FieldConversionRule.new()
-    oneapi_attr_accessor :verified, FieldConversionRule.new('login.verified | TODO')
+    class OneApiAuthentication < OneApiModel
 
-end
+        oneapi_attr_accessor :username, FieldConversionRule.new()
+        oneapi_attr_accessor :password, FieldConversionRule.new()
+        oneapi_attr_accessor :ibsso_token, FieldConversionRule.new('login.ibAuthCookie | TODO')
+        oneapi_attr_accessor :authenticated, FieldConversionRule.new()
+        oneapi_attr_accessor :verified, FieldConversionRule.new('login.verified | TODO')
 
-class OneApiError < OneApiModel
+    end
 
-    oneapi_attr_accessor :message_id, FieldConversionRule.new('requestError.serviceException.messageId | requestError.policyException.messageId')
-    oneapi_attr_accessor :text, FieldConversionRule.new('requestError.serviceException.text | requestError.policyException.text')
-    oneapi_attr_accessor :variables, FieldConversionRule.new('requestError.serviceException.variables | requestError.policyException.variables')
+    class OneApiError < OneApiModel
 
-end
+        oneapi_attr_accessor :message_id, FieldConversionRule.new('requestError.serviceException.messageId | requestError.policyException.messageId')
+        oneapi_attr_accessor :text, FieldConversionRule.new('requestError.serviceException.text | requestError.policyException.text')
+        oneapi_attr_accessor :variables, FieldConversionRule.new('requestError.serviceException.variables | requestError.policyException.variables')
 
-# ----------------------------------------------------------------------------------------------------
-# Messaging:
-# ----------------------------------------------------------------------------------------------------
+    end
 
-class SMSRequest < OneApiModel
+    # ----------------------------------------------------------------------------------------------------
+    # Messaging:
+    # ----------------------------------------------------------------------------------------------------
 
-    oneapi_attr_accessor :sender_address, FieldConversionRule.new(:senderAddress)
-    oneapi_attr_accessor :sender_name, FieldConversionRule.new(:senderName)
-    oneapi_attr_accessor :message, FieldConversionRule.new()
-    oneapi_attr_accessor :address, FieldConversionRule.new()
-    oneapi_attr_accessor :client_correlator, FieldConversionRule.new(:clientCorrelator)
-    oneapi_attr_accessor :notify_url, FieldConversionRule.new(:notifyUrl)
-    oneapi_attr_accessor :callback_data, FieldConversionRule.new()
+    class SMSRequest < OneApiModel
 
-end
+        oneapi_attr_accessor :sender_address, FieldConversionRule.new(:senderAddress)
+        oneapi_attr_accessor :sender_name, FieldConversionRule.new(:senderName)
+        oneapi_attr_accessor :message, FieldConversionRule.new()
+        oneapi_attr_accessor :address, FieldConversionRule.new()
+        oneapi_attr_accessor :client_correlator, FieldConversionRule.new(:clientCorrelator)
+        oneapi_attr_accessor :notify_url, FieldConversionRule.new(:notifyUrl)
+        oneapi_attr_accessor :callback_data, FieldConversionRule.new()
 
-class ResourceReference < OneApiModel
+    end
 
-    oneapi_attr_accessor :client_correlator, LastPartOfUrlFieldConversionRule.new('resourceReference.resourceURL')
+    class ResourceReference < OneApiModel
 
-end
+        oneapi_attr_accessor :client_correlator, LastPartOfUrlFieldConversionRule.new('resourceReference.resourceURL')
 
-class DeliveryInfo < OneApiModel
+    end
 
-    oneapi_attr_accessor :delivery_status, FieldConversionRule.new(:deliveryStatus)
+    class DeliveryInfo < OneApiModel
 
-end
+        oneapi_attr_accessor :delivery_status, FieldConversionRule.new(:deliveryStatus)
 
-class DeliveryInfoList < OneApiModel
+    end
 
-    oneapi_attr_accessor :delivery_info, ObjectArrayConversionRule.new(DeliveryInfo, json_field_name='deliveryInfoList.deliveryInfo')
+    class DeliveryInfoList < OneApiModel
+
+        oneapi_attr_accessor :delivery_info, ObjectArrayConversionRule.new(DeliveryInfo, json_field_name='deliveryInfoList.deliveryInfo')
+
+    end
 
 end
