@@ -64,6 +64,18 @@ module OneApi
 
     class Utils
 
+        def self.empty(obj)
+            if obj == nil
+                return true
+            end
+
+            if obj.instance_of? Hash or obj.instance_of? Array or obj.instance_of? String
+                return obj.size == 0
+            end
+
+            return obj == 0
+        end
+
         def self.get_random_string(length, chars)
             if not length
                 raise "Invalid random string length: #{length}"
@@ -86,4 +98,5 @@ module OneApi
         end
 
     end
+
 end

@@ -4,6 +4,18 @@ require_relative 'oneapi/client'
  
 class OneApiTest < MiniTest::Unit::TestCase
 
+    def test_empty
+        assert_equal OneApi::Utils.empty(0), true
+        assert_equal OneApi::Utils.empty(1), false
+        assert_equal OneApi::Utils.empty('aaa'), false
+        assert_equal OneApi::Utils.empty(0.0), true
+        assert_equal OneApi::Utils.empty([]), true
+        assert_equal OneApi::Utils.empty([1]), false
+        assert_equal OneApi::Utils.empty({}), true
+        assert_equal OneApi::Utils.empty({'a' => 1}), false
+        assert_equal OneApi::Utils.empty(''), true
+    end
+
     def test_json_get
         json = '{"requestError":{"serviceException":{"text":"Request URI missing required component(s): ","messageId":"SVC0002","variables":[""]},"policyException":null}}'
         request_error = OneApi::JSONUtils.get(json, 'requestError.serviceException.text')
