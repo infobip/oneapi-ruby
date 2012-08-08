@@ -138,6 +138,10 @@ module OneApi
 
             field_conversion_rule.object_field_name = attr
 
+            if Utils.empty(field_conversion_rule.json_field_name)
+                field_conversion_rule.json_field_name = attr
+            end
+
             if not @@field_conversion_rules.has_key? self then
                 @@field_conversion_rules[self] = []
             end
