@@ -38,9 +38,9 @@ module OneApi
                     'password' => @password,
             }
 
-            is_success, result = self.execute_POST('/1/customerProfile/login', params)
+            is_success, result = execute_POST('/1/customerProfile/login', params)
 
-            return self.fill_oneapi_authentication(result, is_success)
+            return fill_oneapi_authentication(result, is_success)
         end
 
         def get_or_create_client_correlator(client_correlator=None)
@@ -66,7 +66,7 @@ module OneApi
         end
 
         def urlencode(params)
-            if not params
+            if Utils.empty(params)
                 return ''
             end
             if params.instance_of? String
@@ -74,13 +74,13 @@ module OneApi
             end
             result = ''
             params.each_key do |key|
-                if result
+                if ! Utils.empty(result)
                     result += '&'
                 end
                 result += URI.encode(key.to_s) + '=' + URI.encode(params[key].to_s)
             end
 
-            return '?' + result
+            return result
         end
 
         def execute_GET(url, params)
@@ -96,10 +96,10 @@ module OneApi
             uri = URI(rest_url)
 
             if http_method == 'GET'
-                request = Net::HTTP::Get.new(uri.request_uri)
-                uri.query = urlencode(params)
+                request = Net::HTTP::Get.new("#{uri.request_uri}?#{urlencode(params)}")
             elsif http_method == 'POST'
                 request = Net::HTTP::Post.new(uri.request_uri)
+                request.set_form_data(params)
             end
 
             http = Net::HTTP.new(uri.host, uri.port)
@@ -111,7 +111,6 @@ module OneApi
             end
 
             prepare_headers(request)
-            request.set_form_data(params)
             response = http.request(request)
 
             return is_success(response), response.body
@@ -179,7 +178,7 @@ module OneApi
                 params['callbackData'] = sms.callback_data
             end
 
-            is_success, result = self.execute_POST(
+            is_success, result = execute_POST(
                     "/1/smsmessaging/outbound/#{sms.sender_address}/requests",
                     params
             )
@@ -194,18 +193,50 @@ module OneApi
                 client_correlator = client_correlator_or_resource_reference
             end
 
-            client_correlator = self.get_or_create_client_correlator(client_correlator)
+            client_correlator = get_or_create_client_correlator(client_correlator)
 
             params = {
                 'clientCorrelator' => client_correlator,
             }
 
-            is_success, result = self.execute_GET(
+            is_success, result = execute_GET(
                     "/1/smsmessaging/outbound/TODO/requests/#{client_correlator}/deliveryInfos",
                     params
             )
 
             return convert_from_json(DeliveryInfoList, result, !is_success)
+        end
+
+    end
+
+    class DataConnectionProfileClient < OneApiClient
+
+        def initialize(username, password, base_url=nil)
+            super(username, password, base_url)
+        end
+
+        def retrieve_roaming_status(destination_address, notify_url=nil)
+            # Retrieve asynchronously the customer’s roaming status for a single network-connected mobile device  (HLR)
+
+            params = {
+                'address' => destination_address
+            }
+            if notify_url
+                params['notifyURL'] = notify_url
+            end
+
+            is_success, result = execute_GET('/1/terminalstatus/queries/roamingStatus', params)
+
+            puts "params = #{params.inspect}"
+            puts "is_success = #{is_success}"
+            puts "result = #{result}"
+
+            if Utils.empty(notify_url)
+                json = JSONUtils.get_json(result)
+                return convert_from_json(TerminalRoamingStatus, json['roaming'], ! is_success);
+            else
+                return convert_from_json(GenericObject, {}, ! is_success);
+            end
         end
 
     end

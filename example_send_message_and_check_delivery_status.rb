@@ -13,11 +13,7 @@ if password == nil or password.empty?
 end
 
 sms_client = OneApi::SmsClient.new(username, password)
-login_result = sms_client.login
-if not login_result.is_success
-    puts "Error logging in #{login_result.exception.inspect}"
-    exit(1)
-end
+sms_client.login
 
 sms = OneApi::SMSRequest.new
 sms.sender_address = '38598854702'

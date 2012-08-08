@@ -24,6 +24,9 @@ module OneApi
 
     end
 
+    class GenericObject < OneApiModel
+    end
+
     # ----------------------------------------------------------------------------------------------------
     # Messaging:
     # ----------------------------------------------------------------------------------------------------
@@ -55,6 +58,54 @@ module OneApi
     class DeliveryInfoList < OneApiModel
 
         oneapi_attr_accessor :delivery_info, ObjectArrayConversionRule.new(DeliveryInfo, json_field_name='deliveryInfoList.deliveryInfo')
+
+    end
+
+    # ----------------------------------------------------------------------------------------------------
+    # HLR:
+    # ----------------------------------------------------------------------------------------------------
+
+    class ServingMccMnc < OneApiModel
+
+        oneapi_attr_accessor :mcc, FieldConversionRule.new(:mcc)
+        oneapi_attr_accessor :mnc, FieldConversionRule.new(:mnc)
+
+    end
+
+    class TerminalRoamingExtendedData < OneApiModel
+
+        oneapi_attr_accessor :destination_address, FieldConversionRule.new('destinationAddress')
+        oneapi_attr_accessor :status_id, FieldConversionRule.new('statusId')
+        oneapi_attr_accessor :done_time, FieldConversionRule.new('doneTime')
+        oneapi_attr_accessor :price_per_message, FieldConversionRule.new('pricePerMessage')
+        oneapi_attr_accessor :mcc_mnc, FieldConversionRule.new('mccMnc')
+        oneapi_attr_accessor :serving_msc, FieldConversionRule.new('servingMsc')
+        oneapi_attr_accessor :censored_serving_msc, FieldConversionRule.new('censoredServingMsc')
+        oneapi_attr_accessor :gsm_error_code, FieldConversionRule.new('gsmErrorCode')
+        oneapi_attr_accessor :original_network_name, FieldConversionRule.new('originalNetworkName')
+        oneapi_attr_accessor :ported_network_name, FieldConversionRule.new('portedNetworkName')
+        oneapi_attr_accessor :serving_hlr, FieldConversionRule.new('servingHlr')
+        oneapi_attr_accessor :imsi, FieldConversionRule.new('imsi')
+        oneapi_attr_accessor :original_network_prefix, FieldConversionRule.new('originalNetworkPrefix')
+        oneapi_attr_accessor :original_country_prefix, FieldConversionRule.new('originalCountryPrefix')
+        oneapi_attr_accessor :original_country_name, FieldConversionRule.new('originalCountryName')
+        oneapi_attr_accessor :is_number_ported, FieldConversionRule.new('isNumberPorted')
+        oneapi_attr_accessor :ported_network_prefix, FieldConversionRule.new('portedNetworkPrefix')
+        oneapi_attr_accessor :ported_country_prefix, FieldConversionRule.new('portedCountryPrefix')
+        oneapi_attr_accessor :ported_country_name, FieldConversionRule.new('portedCountryName')
+        oneapi_attr_accessor :number_in_roaming, FieldConversionRule.new('numberInRoaming')
+
+    end
+
+    class TerminalRoamingStatus < OneApiModel
+
+        oneapi_attr_accessor :servingMccMnc, ObjectFieldConverter.new(ServingMccMnc, 'servingMccMnc')
+        oneapi_attr_accessor :address, FieldConversionRule.new()
+        oneapi_attr_accessor :currentRoaming, FieldConversionRule.new('currentRoaming')
+        oneapi_attr_accessor :resourceURL, FieldConversionRule.new('resourceURL')
+        oneapi_attr_accessor :retrievalStatus, FieldConversionRule.new('retrievalStatus')
+        oneapi_attr_accessor :callbackData, FieldConversionRule.new('callbackData')
+        oneapi_attr_accessor :extendedData, ObjectFieldConverter.new(TerminalRoamingExtendedData, 'extendedData')
 
     end
 
