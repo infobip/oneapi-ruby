@@ -83,17 +83,21 @@ module OneApi
             return result
         end
 
-        def execute_GET(url, params)
+        def execute_GET(url, params=nil)
             execute_request('GET', url, params)
         end
 
-        def execute_POST(url, params)
+        def execute_POST(url, params=nil)
             execute_request('POST', url, params)
         end
 
         def execute_request(http_method, url, params)
             rest_url = get_rest_url(url)
             uri = URI(rest_url)
+
+            if Utils.empty(params)
+                params = {}
+            end
 
             if http_method == 'GET'
                 request = Net::HTTP::Get.new("#{uri.request_uri}?#{urlencode(params)}")
@@ -112,6 +116,8 @@ module OneApi
 
             prepare_headers(request)
             response = http.request(request)
+            
+            puts "response = #{response.body}"
 
             return is_success(response), response.body
         end
@@ -237,6 +243,27 @@ module OneApi
             else
                 return convert_from_json(GenericObject, {}, ! is_success);
             end
+        end
+
+    end
+
+
+    class CustomerProfileClient < OneApiClient
+
+        def initialize(username, password, base_url=nil)
+            super(username, password, base_url)
+        end
+
+        def get_account_balance()
+            is_success, result = execute_GET('/1/customerProfile/balance')
+            
+            return convert_from_json(AccountBalance, result, ! is_success)
+        end
+
+        def get_customer_profile()
+            is_success, result = execute_GET('/1/customerProfile')
+
+            return convert_from_json(CustomerProfile, result, ! is_success)
         end
 
     end

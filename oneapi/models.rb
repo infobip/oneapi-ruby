@@ -109,4 +109,53 @@ module OneApi
 
     end
 
+    # ----------------------------------------------------------------------------------------------------
+    # Customer profile:
+    # ----------------------------------------------------------------------------------------------------
+
+    class CustomerProfile < OneApiModel
+
+        oneapi_attr_accessor :id, FieldConversionRule.new()
+        oneapi_attr_accessor :username, FieldConversionRule.new()
+        oneapi_attr_accessor :forename, FieldConversionRule.new()
+        oneapi_attr_accessor :surname, FieldConversionRule.new()
+        oneapi_attr_accessor :street, FieldConversionRule.new()
+        oneapi_attr_accessor :city, FieldConversionRule.new()
+        oneapi_attr_accessor :zip_code, FieldConversionRule.new('zipCode')
+        oneapi_attr_accessor :telephone, FieldConversionRule.new()
+        oneapi_attr_accessor :gsm, FieldConversionRule.new()
+        oneapi_attr_accessor :fax, FieldConversionRule.new()
+        oneapi_attr_accessor :email, FieldConversionRule.new()
+        oneapi_attr_accessor :msn, FieldConversionRule.new()
+        oneapi_attr_accessor :skype, FieldConversionRule.new()
+        oneapi_attr_accessor :country_id, FieldConversionRule.new('countryId')
+        oneapi_attr_accessor :timezone_id, FieldConversionRule.new('timezoneId')
+        oneapi_attr_accessor :primary_language_id, FieldConversionRule.new('primaryLanguageId')
+        oneapi_attr_accessor :secondary_language_id, FieldConversionRule.new('secondaryLanguageId')
+
+    end
+
+    class Currency < OneApiModel
+
+        oneapi_attr_accessor :id, FieldConversionRule.new()
+        oneapi_attr_accessor :currency_name, FieldConversionRule.new('currencyName')
+        oneapi_attr_accessor :symbol, FieldConversionRule.new()
+
+    end
+
+    class Currency < OneApiModel
+
+        oneapi_attr_accessor :id, FieldConversionRule.new()
+        oneapi_attr_accessor :currency_name, FieldConversionRule.new('currencyName')
+        oneapi_attr_accessor :symbol, FieldConversionRule.new()
+
+    end
+
+    class AccountBalance < OneApiModel
+
+        oneapi_attr_accessor :balance, FieldConversionRule.new()
+        oneapi_attr_accessor :currency, ObjectFieldConverter.new(Currency)
+
+    end
+
 end
