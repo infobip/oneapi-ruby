@@ -1,8 +1,3 @@
-=begin
-require_relative 'rubygems'
-require_relative 'ruby-debug'
-=end
-
 require 'net/http'
 
 require_relative 'objects'
@@ -11,6 +6,10 @@ require_relative 'models'
 module OneApi
 
     class OneApiClient
+
+        # If true -- an exception will be thrown on error, otherwise, you have 
+        # to check the is_success and exception methods on resulting objects.
+        attr_accessor :raise_exceptions
 
         def initialize(username, password, base_url=nil)
             @username = username
@@ -28,11 +27,11 @@ module OneApi
             end
 
             @oneapi_authentication = nil
+            @raise_exceptions = true
         end
 
 
         def login()
-
             params = {
                     'username' => @username,
                     'password' => @password,
@@ -105,6 +104,7 @@ module OneApi
             prepare_headers(request)
             request.set_form_data(params)
             response = http.request(request)
+
             return is_success(response), response.body
         end
 
@@ -121,13 +121,24 @@ module OneApi
         end
 
         def fill_oneapi_authentication(json, is_success)
-            @oneapi_authentication = Conversions.from_json(OneApiAuthentication, json, !is_success)
+            @oneapi_authentication = convert_from_json(OneApiAuthentication, json, !is_success)
+
             @oneapi_authentication.username = @username
             @oneapi_authentication.password = @password
 
             @oneapi_authentication.authenticated = @oneapi_authentication.ibsso_token ? @oneapi_authentication.ibsso_token.length > 0 : false
 
             @oneapi_authentication
+        end
+
+        def convert_from_json(classs, json, is_error)
+            result = Conversions.from_json(classs, json, is_error)
+
+            if @raise_exceptions and !result.is_success
+                raise "#{result.exception.message_id}: #{result.exception.text} [#{result.exception.variables}]"
+            end
+
+            result
         end
 
     end
@@ -164,7 +175,7 @@ module OneApi
                     params
             )
 
-            return Conversions.from_json(ResourceReference, result, !is_success)
+            convert_from_json(ResourceReference, result, !is_success)
         end
 
         def query_delivery_status(client_correlator_or_resource_reference)
@@ -185,7 +196,7 @@ module OneApi
                     params
             )
 
-            result
+            return convert_from_json(DeliveryInfoList, result, !is_success)
         end
 
     end

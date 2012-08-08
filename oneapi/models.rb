@@ -1,8 +1,3 @@
-=begin
-require_relative 'rubygems'
-require_relative 'ruby-debug'
-=end
-
 require_relative 'objects'
 
 # ----------------------------------------------------------------------------------------------------

@@ -102,6 +102,7 @@ module OneApi
 
         def self.from_json(classs, json, is_error=nil)
             object = classs.new
+
             Conversions.fill_from_json(object, json, is_error)
 
             object
