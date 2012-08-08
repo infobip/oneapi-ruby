@@ -1,4 +1,5 @@
 require 'net/http'
+require 'net/https'
 
 require_relative 'objects'
 require_relative 'models'
@@ -17,9 +18,7 @@ module OneApi
             if base_url
                 @base_url = base_url
             else
-                # TODO: https
-                @base_url = 'http://api.parseco.com'
-                #@base_url = 'http://p1-fr-1:9151'
+                @base_url = 'https://api.parseco.com'
             end
 
             if @base_url[-1, 1] != '/'
@@ -91,7 +90,8 @@ module OneApi
         end
 
         def execute_request(http_method, url, params)
-            uri = URI(get_rest_url(url))
+            rest_url = get_rest_url(url)
+            uri = URI(rest_url)
 
             if http_method == 'GET'
                 request = Net::HTTP::Get.new(uri.request_uri)
@@ -101,6 +101,13 @@ module OneApi
             end
 
             http = Net::HTTP.new(uri.host, uri.port)
+
+            use_ssl = rest_url.start_with? "https"
+            if use_ssl
+                http.use_ssl = true
+                http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+            end
+
             prepare_headers(request)
             request.set_form_data(params)
             response = http.request(request)
