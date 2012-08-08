@@ -43,7 +43,7 @@ module OneApi
             return fill_oneapi_authentication(result, is_success)
         end
 
-        def get_or_create_client_correlator(client_correlator=None)
+        def get_or_create_client_correlator(client_correlator=nil)
             if client_correlator
                 return client_correlator
             end
@@ -213,6 +213,23 @@ module OneApi
             return convert_from_json(DeliveryInfoList, result, !is_success)
         end
 
+        def retrieve_inbound_messages(max_number=nil)
+            if Utils.empty(max_number)
+                max_number = 100
+            end
+
+            params = {
+                    'maxBatchSize' => max_number
+            }
+
+            is_success, result = execute_GET(
+                    '/1/smsmessaging/inbound/registrations/INBOUND/messages', 
+                    params
+            )
+
+            return convert_from_json(InboundSmsMessages, result, ! is_success)
+        end
+
     end
 
     class DataConnectionProfileClient < OneApiClient
@@ -246,7 +263,6 @@ module OneApi
         end
 
     end
-
 
     class CustomerProfileClient < OneApiClient
 

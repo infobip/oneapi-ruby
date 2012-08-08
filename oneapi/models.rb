@@ -158,4 +158,28 @@ module OneApi
 
     end
 
+    # ----------------------------------------------------------------------------------------------------
+    # Inbound:
+    # ----------------------------------------------------------------------------------------------------
+
+    class InboundSmsMessage < OneApiModel
+
+        oneapi_attr_accessor :date_time, FieldConversionRule.new('dateTime')
+        oneapi_attr_accessor :destination_address, FieldConversionRule.new('destinationAddress')
+        oneapi_attr_accessor :message_id, FieldConversionRule.new('messageId')
+        oneapi_attr_accessor :message, FieldConversionRule.new('message')
+        oneapi_attr_accessor :resource_url, FieldConversionRule.new('resourceURL')
+        oneapi_attr_accessor :sender_address, FieldConversionRule.new('senderAddress')
+
+    end
+
+    class InboundSmsMessages < OneApiModel
+
+        oneapi_attr_accessor :inbound_sms_message, ObjectFieldConverter.new(InboundSmsMessage, 'inboundSMSMessageList.inboundSMSMessage')
+        oneapi_attr_accessor :number_of_messages_in_this_batch, FieldConversionRule.new('inboundSMSMessageList.numberOfMessagesInThisBatch')
+        oneapi_attr_accessor :total_number_of_pending_messages, FieldConversionRule.new('inboundSMSMessageList.totalNumberOfPendingMessages')
+        oneapi_attr_accessor :callback_data, FieldConversionRule.new('inboundSMSMessageList.callbackData')
+
+    end
+
 end
