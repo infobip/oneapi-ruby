@@ -1,6 +1,5 @@
-require 'rubygems'
 require 'json'
-require "socket"
+require 'socket'
 
 module OneApi
 

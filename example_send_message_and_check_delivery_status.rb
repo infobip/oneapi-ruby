@@ -4,11 +4,11 @@ username = ARGV[0]
 password = ARGV[1]
 
 if username == nil or username.empty?
-    puts "No username given"
+    puts 'No username given'
     exit
 end
 if password == nil or password.empty?
-    puts "No password given"
+    puts 'No password given'
     exit
 end
 

@@ -213,6 +213,13 @@ module OneApi
             return convert_from_json(DeliveryInfoList, result, !is_success)
         end
 
+        # To be used when http push with a delivery notification comes.
+        def self.convert_delivery_notification(http_body)
+            json = JSONUtils.get_json(http_body)
+            json = JSONUtils.get(json, 'deliveryInfoNotification.deliveryInfo')
+            return Conversions::from_json(DeliveryInfo, json, false)
+        end
+
     end
 
     class DataConnectionProfileClient < OneApiClient

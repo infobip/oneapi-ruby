@@ -51,6 +51,7 @@ module OneApi
 
     class DeliveryInfo < OneApiModel
 
+        oneapi_attr_accessor :address, FieldConversionRule.new(:address)
         oneapi_attr_accessor :delivery_status, FieldConversionRule.new(:deliveryStatus)
 
     end
