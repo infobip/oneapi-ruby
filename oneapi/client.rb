@@ -252,6 +252,13 @@ module OneApi
             end
         end
 
+        # To be used when http push with a delivery notification comes.
+        def self.convert_roaming_status_notification(http_body)
+            json = JSONUtils.get_json(http_body)
+            json = JSONUtils.get(json, 'terminalRoamingStatusList.roaming')
+            return Conversions::from_json(TerminalRoamingStatus, json, false)
+        end
+
     end
 
 

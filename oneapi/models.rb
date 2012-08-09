@@ -25,6 +25,10 @@ module OneApi
     end
 
     class GenericObject < OneApiModel
+
+        # FIXME: WIthout this it is not a valid model
+        oneapi_attr_accessor :ignore, FieldConversionRule.new(:ignore)
+
     end
 
     # ----------------------------------------------------------------------------------------------------
