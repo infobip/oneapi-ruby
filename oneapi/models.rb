@@ -180,7 +180,7 @@ module OneApi
 
     class InboundSmsMessages < OneApiModel
 
-        oneapi_attr_accessor :inbound_sms_message, ObjectFieldConverter.new(InboundSmsMessage, 'inboundSMSMessageList.inboundSMSMessage')
+        oneapi_attr_accessor :inbound_sms_message, ObjectArrayConversionRule.new(InboundSmsMessage, 'inboundSMSMessageList.inboundSMSMessage')
         oneapi_attr_accessor :number_of_messages_in_this_batch, FieldConversionRule.new('inboundSMSMessageList.numberOfMessagesInThisBatch')
         oneapi_attr_accessor :total_number_of_pending_messages, FieldConversionRule.new('inboundSMSMessageList.totalNumberOfPendingMessages')
         oneapi_attr_accessor :callback_data, FieldConversionRule.new('inboundSMSMessageList.callbackData')

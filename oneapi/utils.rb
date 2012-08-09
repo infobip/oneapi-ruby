@@ -1,3 +1,4 @@
+#require 'pry'
 require 'json'
 require 'socket'
 
@@ -48,7 +49,6 @@ module OneApi
                     result = result[part.to_i]
                 else
                     # Hash:
-                    puts "result = #{result}, part = #{part}"
                     result = result[part]
                 end
             end
