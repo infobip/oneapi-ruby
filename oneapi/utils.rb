@@ -1,10 +1,6 @@
-=begin
-require_relative 'rubygems'
-require_relative 'ruby-debug'
-=end
-
 require 'rubygems'
 require 'json'
+require "socket"
 
 module OneApi
 
@@ -99,5 +95,71 @@ module OneApi
         end
 
     end
+
+    # Web server, to be used only in examples
+    class DummyWebServer
+
+        attr_accessor :requests
+
+        def initialize(ip_address, port)
+            @webserver = TCPServer.new(ip_address, port)
+            @session = nil
+            @requests = []
+        end
+
+        def start(seconds)
+            Thread.new {
+                while (@session = @webserver.accept)
+                    request_string = @session.sysread 10000
+                    @session.print "HTTP/1.1 200/OK\r\nContent-type:text/html\r\n\r\n"
+                    @session.print("OK")
+                    @session.close
+                    @requests.push(parse_request_string request_string)
+                end
+            }
+
+            sleep(seconds)
+
+            @webserver.close
+            if @session != nil
+                begin
+                    @session.close
+                rescue
+                end
+            end
+        end
+
+        def parse_request_string request_string
+            lines = request_string.split(/\n/)
+            method, url, http_version = lines[0].split(' ')
+            headers = {}
+            body = nil
+            for line in lines[1,lines.length]
+                if body == nil
+                    if line.strip == ''
+                        body = ''
+                    else
+                        index = line.index ':'
+                        key = line[0,index].strip
+                        value = line[index + 1, line.length].strip
+                        headers[key] = value
+                    end
+                end
+
+                if body != nil
+                    body += line + "\n"
+                end
+            end
+            return method, url, headers, body.strip
+        end
+
+    end
+
+=begin
+dummy_web_server = DummyWebServer.new('localhost', 2000)
+dummy_web_server.start 10
+puts dummy_web_server.requests
+=end
+
 
 end
