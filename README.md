@@ -55,7 +55,7 @@ Same as with the standard messaging example, but when preparing your message:
 
 When the delivery notification is pushed to your server as a HTTP POST request, you must process the body of the message with the following code:
 
-    delivery_info = OneApi::SmsClient.convert_delivery_notification(body)
+    delivery_info = OneApi::SmsClient.unserialize_delivery_status(body)
 
 
 HLR example
@@ -82,7 +82,7 @@ Similar to the previous example, but this time you must set the notification url
 
 When the roaming status notification is pushed to your server as a HTTP POST request, you must process the body of the message with the following code:
 
-    delivery_info = OneApi::DataConnectionProfileClient.convert_roaming_status_notification(body)
+    delivery_info = OneApi::DataConnectionProfileClient.unserialize_roaming_status(body)
 
 
 Retrieve inbound messages example
@@ -99,7 +99,8 @@ Inbound message push example
 The subscription to recive inbound messages can be set up on our site.
 When the inbound message notification is pushed to your server as a HTTP POST request, you must process the body of the message with the following code:
 
-    TODO
+    inbound_messages = OneApi::SmsClient.unserialize_inbound_messages()
+
 
 License
 -------
