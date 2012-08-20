@@ -35,6 +35,8 @@ dummy_web_server = OneApi::DummyWebServer.new(local_ip_address, port)
 dummy_web_server.start 30
 
 for method, url, headers, body in dummy_web_server.requests
+    # example:on-roaming-status
     delivery_info = OneApi::DataConnectionProfileClient.convert_roaming_status_notification(body)
+    # ----------------------------------------------------------------------------------------------------
     puts delivery_info.inspect
 end
