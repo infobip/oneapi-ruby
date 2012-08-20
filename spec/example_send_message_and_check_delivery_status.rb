@@ -12,18 +12,32 @@ if password == nil or password.empty?
     exit
 end
 
+# example:initialize-sms-client
 sms_client = OneApi::SmsClient.new(username, password)
-sms_client.login
+# ----------------------------------------------------------------------------------------------------
 
+# example:login-sms-client
+sms_client.login
+# ----------------------------------------------------------------------------------------------------
+
+# example:prepare-message-without-notify-url
 sms = OneApi::SMSRequest.new
-sms.sender_address = '38598854702'
-sms.address = '38598854702'
+sms.sender_address = '38598123456'
+sms.address = '38598123456'
 sms.message = 'Test message'
 sms.callback_data = 'Any string'
+# ----------------------------------------------------------------------------------------------------
 
+# example:send-message
 result = sms_client.send_sms(sms)
 
-delivery_status = sms_client.query_delivery_status(result.client_correlator)
+# Store the client correlator to be able to query for the delivery status later:
+client_correlator = result.client_correlator
+# ----------------------------------------------------------------------------------------------------
+
+# example:query-for-delivery-status
+delivery_status = sms_client.query_delivery_status(client_correlator)
+# ----------------------------------------------------------------------------------------------------
 
 sleep(10)
 

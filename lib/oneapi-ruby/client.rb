@@ -230,13 +230,17 @@ module OneApi
         end
 
         # To be used when http push with a delivery notification comes.
-        def self.convert_delivery_notification(http_body)
+        def self.unserialize_delivery_status(http_body)
             json = JSONUtils.get_json(http_body)
-            json = JSONUtils.get(json, 'deliveryInfoNotification.deliveryInfo')
-            return Conversions::from_json(DeliveryInfo, json, false)
+            return Conversions::from_json(DeliveryInfoNotification, json, false)
         end
 
-    end
+
+        @staticmethod
+        def self.unserialize_inbound_messages(http_body)
+            json = JSONUtils.get_json(http_body)
+            return Conversions::from_json(InboundSmsMessages, json, false)
+        end
 
     class DataConnectionProfileClient < OneApiClient
 
@@ -269,10 +273,9 @@ module OneApi
         end
 
         # To be used when http push with a delivery notification comes.
-        def self.convert_roaming_status_notification(http_body)
+        def self.unserialize_roaming_status(http_body)
             json = JSONUtils.get_json(http_body)
-            json = JSONUtils.get(json, 'terminalRoamingStatusList.roaming')
-            return Conversions::from_json(TerminalRoamingStatus, json, false)
+            return Conversions::from_json(TerminalRoamingStatusNotification, json, false)
         end
 
     end
