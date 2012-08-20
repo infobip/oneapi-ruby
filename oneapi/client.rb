@@ -237,7 +237,12 @@ module OneApi
             return Conversions::from_json(DeliveryInfoNotification, json, false)
         end
 
-    end
+
+        @staticmethod
+        def self.unserialize_inbound_messages(http_body)
+            json = JSONUtils.get_json(http_body)
+            return Conversions::from_json(InboundSmsMessages, json, false)
+        end
 
     class DataConnectionProfileClient < OneApiClient
 
