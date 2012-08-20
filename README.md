@@ -19,8 +19,8 @@ An exception will be thrown if your username and/or password are incorrect.
 Prepare the message:
 
     sms = OneApi::SMSRequest.new
-    sms.sender_address = '38598854702'
-    sms.address = '38598854702'
+    sms.sender_address = '38598123456'
+    sms.address = '38598123456'
     sms.message = 'Test message'
     sms.callback_data = 'Any string'
 
@@ -46,8 +46,8 @@ Messaging with notification push example
 Same as with the standard messaging example, but when preparing your message:
 
     sms = OneApi::SMSRequest.new
-    sms.sender_address = '38598854702'
-    sms.address = '38598854702'
+    sms.sender_address = '38598123456'
+    sms.address = '38598123456'
     sms.message = 'Test message'
     sms.callback_data = 'Any string'
     sms.notify_url = "http://#{local_ip_address}:#{port}"
