@@ -17,9 +17,13 @@ if OneApi::Utils.empty(destination_address)
     exit
 end
 
+# example:data-connection-client
 data_connection_client = OneApi::DataConnectionProfileClient.new(username, password)
 data_connection_client.login
+# ----------------------------------------------------------------------------------------------------
 
+# example:retrieve-roaming-status
 result = data_connection_client.retrieve_roaming_status(destination_address)
+# ----------------------------------------------------------------------------------------------------
 
 puts result.inspect
