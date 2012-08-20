@@ -38,7 +38,7 @@ dummy_web_server.start 30
 
 for method, url, headers, body in dummy_web_server.requests
     # example:on-roaming-status
-    delivery_info = OneApi::DataConnectionProfileClient.convert_roaming_status_notification(body)
+    delivery_info = OneApi::DataConnectionProfileClient.unserialize_roaming_status(body)
     # ----------------------------------------------------------------------------------------------------
     puts delivery_info.inspect
 end

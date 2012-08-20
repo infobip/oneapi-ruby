@@ -40,6 +40,6 @@ dummy_web_server.start 30
 
 for method, url, headers, body in dummy_web_server.requests
     # example:on-delivery-notification
-    delivery_info = OneApi::SmsClient.convert_delivery_notification(body)
+    delivery_info = OneApi::SmsClient.unserialize_delivery_status(body)
     # ----------------------------------------------------------------------------------------------------
 end
