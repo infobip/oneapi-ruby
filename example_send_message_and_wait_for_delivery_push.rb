@@ -22,12 +22,14 @@ port = 9090
 sms_client = OneApi::SmsClient.new(username, password)
 sms_client.login
 
+# example:prepare-message-with-notify-url
 sms = OneApi::SMSRequest.new
 sms.sender_address = '38598123456'
 sms.address = '38598123456'
 sms.message = 'Test message'
 sms.callback_data = 'Any string'
 sms.notify_url = "http://#{local_ip_address}:#{port}"
+# ----------------------------------------------------------------------------------------------------
 
 puts sms.inspect
 
@@ -37,5 +39,7 @@ dummy_web_server = OneApi::DummyWebServer.new(local_ip_address, port)
 dummy_web_server.start 30
 
 for method, url, headers, body in dummy_web_server.requests
+    # example:on-delivery-notification
     delivery_info = OneApi::SmsClient.convert_delivery_notification(body)
+    # ----------------------------------------------------------------------------------------------------
 end
