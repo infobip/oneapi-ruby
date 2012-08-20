@@ -66,10 +66,10 @@ module OneApi
 
     end
 
-    class DeliveryInfoNotification(mod_object.AbstractModel):
+    class DeliveryInfoNotification < OneApiModel
 
-        oneapi_attr_accessor :delivery_info = ObjectFieldConverter.new(DeliveryInfo, 'deliveryInfoNotification.deliveryInfo')
-        oneapi_attr_accessor :callback_data = FieldConversionRule.new('deliveryInfoNotification.callbackData')
+        oneapi_attr_accessor :delivery_info, ObjectFieldConverter.new(DeliveryInfo, 'deliveryInfoNotification.deliveryInfo')
+        oneapi_attr_accessor :callback_data, FieldConversionRule.new('deliveryInfoNotification.callbackData')
 
     end
 
@@ -122,7 +122,7 @@ module OneApi
     end
 
 
-    class TerminalRoamingStatusNotification(mod_object.AbstractModel):
+    class TerminalRoamingStatusNotification < OneApiModel
 
         oneapi_attr_accessor :delivery_info, ObjectFieldConverter.new(TerminalRoamingStatus, 'terminalRoamingStatusList.roaming')
         oneapi_attr_accessor :callback_data, FieldConversionRule.new('terminalRoamingStatusList.roaming.callbackData')
