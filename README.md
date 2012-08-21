@@ -99,7 +99,7 @@ Inbound message push example
 The subscription to recive inbound messages can be set up on our site.
 When the inbound message notification is pushed to your server as a HTTP POST request, you must process the body of the message with the following code:
 
-    inbound_messages = OneApi::SmsClient.unserialize_inbound_messages()
+    inbound_messages = OneApi::SmsClient.unserialize_inbound_messages(http_body)
 
 
 License

@@ -5,5 +5,5 @@ http_body = '...'
 
 #...and process it with:
 # example:on-mo
-inbound_messages = OneApi::SmsClient.unserialize_inbound_messages()
+inbound_messages = OneApi::SmsClient.unserialize_inbound_messages(http_body)
 # ----------------------------------------------------------------------------------------------------
