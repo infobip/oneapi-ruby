@@ -20,7 +20,6 @@ end
 port = 9090
 
 sms_client = OneApi::SmsClient.new(username, password)
-sms_client.login
 
 # example:prepare-message-with-notify-url
 sms = OneApi::SMSRequest.new

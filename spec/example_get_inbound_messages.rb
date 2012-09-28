@@ -14,7 +14,6 @@ if OneApi::Utils.empty(password)
 end
 
 sms_client = OneApi::SmsClient.new(username, password)
-sms_client.login
 
 # example:retrieve-inbound-messages
 result = sms_client.retrieve_inbound_messages()

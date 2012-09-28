@@ -1,6 +1,7 @@
 #require 'pry'
 require 'net/http'
 require 'net/https'
+require "base64"
 
 require_relative 'objects'
 require_relative 'models'
@@ -54,6 +55,9 @@ module OneApi
             request["User-Agent"] = "OneApi-ruby-#{OneApi::VERSION}"
             if @oneapi_authentication and @oneapi_authentication.ibsso_token
                 request['Authorization'] = "IBSSO #{@oneapi_authentication.ibsso_token}"
+            else
+                auth_string = Base64.encode64("#{@username}:#{@password}").strip
+                request['Authorization'] = "Basic #{auth_string}"
             end
         end
 
@@ -241,6 +245,7 @@ module OneApi
             json = JSONUtils.get_json(http_body)
             return Conversions::from_json(InboundSmsMessages, json, false)
         end
+    end
 
     class DataConnectionProfileClient < OneApiClient
 
