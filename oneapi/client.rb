@@ -243,6 +243,7 @@ module OneApi
             json = JSONUtils.get_json(http_body)
             return Conversions::from_json(InboundSmsMessages, json, false)
         end
+    end
 
     class DataConnectionProfileClient < OneApiClient
 
