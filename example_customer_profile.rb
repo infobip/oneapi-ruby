@@ -13,7 +13,6 @@ if password == nil or password.empty?
 end
 
 customer_profile_client = OneApi::CustomerProfileClient.new(username, password)
-customer_profile_client.login
 
 customer_profile = customer_profile_client.get_customer_profile()
 puts customer_profile.inspect

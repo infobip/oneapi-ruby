@@ -25,7 +25,6 @@ end
 port = 9090
 
 data_connection_client = OneApi::DataConnectionProfileClient.new(username, password)
-data_connection_client.login
 
 notify_url = "http://#{local_ip_address}:#{port}"
 

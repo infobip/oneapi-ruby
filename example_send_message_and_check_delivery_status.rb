@@ -16,10 +16,6 @@ end
 sms_client = OneApi::SmsClient.new(username, password)
 # ----------------------------------------------------------------------------------------------------
 
-# example:login-sms-client
-sms_client.login
-# ----------------------------------------------------------------------------------------------------
-
 # example:prepare-message-without-notify-url
 sms = OneApi::SMSRequest.new
 sms.sender_address = '38598123456'

@@ -19,7 +19,6 @@ end
 
 # example:data-connection-client
 data_connection_client = OneApi::DataConnectionProfileClient.new(username, password)
-data_connection_client.login
 # ----------------------------------------------------------------------------------------------------
 
 # example:retrieve-roaming-status
