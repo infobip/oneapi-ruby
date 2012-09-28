@@ -2,6 +2,7 @@ require_relative 'oneapi/client'
 
 username = ARGV[0]
 password = ARGV[1]
+destination_address = ARGV[2]
 
 if username == nil or username.empty?
     puts 'No username given'
@@ -9,6 +10,10 @@ if username == nil or username.empty?
 end
 if password == nil or password.empty?
     puts 'No password given'
+    exit
+end
+if destination_address == nil or destination_address.empty?
+    puts 'No destination number given'
     exit
 end
 
@@ -19,7 +24,7 @@ sms_client = OneApi::SmsClient.new(username, password)
 # example:prepare-message-without-notify-url
 sms = OneApi::SMSRequest.new
 sms.sender_address = '38598123456'
-sms.address = '38598123456'
+sms.address = destination_address
 sms.message = 'Test message'
 sms.callback_data = 'Any string'
 # ----------------------------------------------------------------------------------------------------
