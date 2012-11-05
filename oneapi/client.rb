@@ -307,5 +307,42 @@ module OneApi
 
     end
 
-end
+    class UssdClient < OneApiClient
+        # Warning, this is an experimental feature. The API may change!
 
+        def initialize(username, password, base_url=nil)
+            super(username, password, base_url)
+        end
+
+        def send_message(address, message)
+            params = {
+                    'address' => address,
+                    'message' => message
+            }
+
+            is_success, json = execute_POST(
+                    '/1/ussd/outbound',
+                    params = params
+            )
+
+            return create_from_json(InboundSmsMessage, json, ! is_success)
+        end
+
+        def close_session(address, message)
+            params = {
+                    'address' => address,
+                    'message' => message,
+                    'stopSession' => 'true'
+            }
+
+            is_success, json = execute_POST(
+                    '/1/ussd/outbound',
+                    params = params,
+                    leave_undecoded = true
+            )
+
+            return true
+        end
+    end
+
+end
