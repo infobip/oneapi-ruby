@@ -56,7 +56,7 @@ class OneApiTest < MiniTest::Unit::TestCase
     end
  
     def test_exception_object_array
-        json = '{"deliveryInfoList":{"deliveryInfo":[{"address":null,"deliveryStatus":"DeliveryUncertain1"},{"address":null,"deliveryStatus":"DeliveryUncertain2"}],"resourceURL":"http://api.parseco.com/1/smsmessaging/outbound/TODO/requests/28drx7ypaqr/deliveryInfos"}}'
+        json = '{"deliveryInfoList":{"deliveryInfo":[{"address":null,"deliveryStatus":"DeliveryUncertain1"},{"address":null,"deliveryStatus":"DeliveryUncertain2"}],"resourceURL":"http://oneapi.infobip.com/1/smsmessaging/outbound/TODO/requests/28drx7ypaqr/deliveryInfos"}}'
 
         object = OneApi::Conversions.from_json(OneApi::DeliveryInfoList, json, nil)
 
