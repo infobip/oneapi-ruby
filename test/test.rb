@@ -1,6 +1,5 @@
 require 'minitest/autorun'
-
-require_relative 'oneapi/client'
+require 'oneapi/client'
  
 class OneApiTest < MiniTest::Unit::TestCase
 
