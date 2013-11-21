@@ -20,7 +20,7 @@ module OneApi
             if base_url
                 @base_url = base_url
             else
-                @base_url = 'https://api.parseco.com'
+                @base_url = 'https://oneapi.infobip.com'
             end
 
             if @base_url[-1, 1] != '/'

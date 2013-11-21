@@ -9,18 +9,13 @@ First initialize the messaging client using your username and password:
     sms_client = OneApi::SmsClient.new(username, password)
 
 
-Then login with the client:
-
-    sms_client.login
-
-
 An exception will be thrown if your username and/or password are incorrect.
 
 Prepare the message:
 
     sms = OneApi::SMSRequest.new
     sms.sender_address = '38598123456'
-    sms.address = '38598123456'
+    sms.address = destination_address
     sms.message = 'Test message'
     sms.callback_data = 'Any string'
 
@@ -64,7 +59,6 @@ HLR example
 Initialize and login the data connection client:
 
     data_connection_client = OneApi::DataConnectionProfileClient.new(username, password)
-    data_connection_client.login
 
 
 Retrieve the roaming status (HLR):
