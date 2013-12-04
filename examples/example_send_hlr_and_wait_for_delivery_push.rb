@@ -1,4 +1,8 @@
-require_relative 'oneapi/client'
+lib = File.expand_path('../../lib', __FILE__)
+if File.exists?(lib)
+  $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+end
+require 'oneapi-ruby'
 
 username = ARGV[0]
 password = ARGV[1]
