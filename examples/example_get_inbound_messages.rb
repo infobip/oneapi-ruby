@@ -6,15 +6,15 @@ require 'oneapi-ruby'
 
 username = ARGV[0]
 password = ARGV[1]
-destination_address = ARGV[2]
 
 if OneApi::Utils.empty(username)
-    puts "No username given"
-    exit
+  print "Username: "
+  username = gets.strip!
 end
+
 if OneApi::Utils.empty(password)
-    puts "No password given"
-    exit
+  print "Password: "
+  password = gets.strip!
 end
 
 sms_client = OneApi::SmsClient.new(username, password)

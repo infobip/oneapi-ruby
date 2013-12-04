@@ -8,17 +8,19 @@ username = ARGV[0]
 password = ARGV[1]
 destination_address = ARGV[2]
 
-if username == nil or username.empty?
-    puts 'No username given'
-    exit
+if OneApi::Utils.empty(username)
+  print "Username: "
+  username = gets.strip!
 end
-if password == nil or password.empty?
-    puts 'No password given'
-    exit
+
+if OneApi::Utils.empty(password)
+  print "Password: "
+  password = gets.strip!
 end
-if destination_address == nil or destination_address.empty?
-    puts 'No destination number given'
-    exit
+
+if OneApi::Utils.empty(destination_address)
+  print "Destination (MSISDN): "
+  destination_address = gets.strip!
 end
 
 # example:initialize-sms-client

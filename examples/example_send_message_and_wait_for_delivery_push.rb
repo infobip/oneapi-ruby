@@ -7,18 +7,26 @@ require 'oneapi-ruby'
 username = ARGV[0]
 password = ARGV[1]
 local_ip_address = ARGV[2]
+destination_address = ARGV[3]
 
-if username == nil or username.empty?
-    puts 'No username given'
-    exit
+if OneApi::Utils.empty(username)
+  print "Username: "
+  username = gets.strip!
 end
-if password == nil or password.empty?
-    puts 'No password given'
-    exit
+
+if OneApi::Utils.empty(password)
+  print "Password: "
+  password = gets.strip!
 end
-if local_ip_address == nil or local_ip_address.empty?
-    puts 'No local ip address given'
-    exit
+
+if OneApi::Utils.empty(local_ip_address)
+  print "Local IP address: "
+  local_ip_address = gets.strip!
+end
+
+if OneApi::Utils.empty(destination_address)
+  print "Destination (MSISDN): "
+  destination_address = gets.strip!
 end
 
 port = 9090
@@ -27,8 +35,8 @@ sms_client = OneApi::SmsClient.new(username, password)
 
 # example:prepare-message-with-notify-url
 sms = OneApi::SMSRequest.new
-sms.sender_address = '38598123456'
-sms.address = '38598123456'
+sms.sender_address = 'INFOSMS'
+sms.address = destination_address
 sms.message = 'Test message'
 sms.callback_data = 'Any string'
 sms.notify_url = "http://#{local_ip_address}:#{port}"

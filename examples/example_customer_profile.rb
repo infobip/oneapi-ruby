@@ -7,14 +7,18 @@ require 'oneapi-ruby'
 username = ARGV[0]
 password = ARGV[1]
 
-if username == nil or username.empty?
-    puts "No username given"
-    exit
+if OneApi::Utils.empty(username)
+  print "Username: "
+  username = gets.strip!
 end
-if password == nil or password.empty?
-    puts "No password given"
-    exit
+
+if OneApi::Utils.empty(password)
+  print "Password: "
+  password = gets.strip!
 end
+
+puts username
+puts password
 
 customer_profile_client = OneApi::CustomerProfileClient.new(username, password)
 
