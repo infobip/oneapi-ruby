@@ -97,6 +97,29 @@ module OneApi
         end
 
     end
+	
+	class PartOfUrlFieldConversionRule < FieldConversionRule
+        def initialize(json_field_name=nil,part_index)
+            super(json_field_name)
+			@part_index = part_index;
+        end
+
+        def from_json(value)
+            if ! value
+                return nil
+            end
+
+            parts = value.split('/')
+
+            parts[@part_index]
+        end
+
+        def to_json(value)
+            value
+        end
+
+    end
+
 
     class Conversions
 
