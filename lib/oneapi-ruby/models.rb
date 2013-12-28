@@ -49,7 +49,7 @@ module OneApi
 
     class ResourceReference < OneApiModel
 
-        oneapi_attr_accessor :client_correlator, LastPartOfUrlFieldConversionRule.new('resourceReference.resourceURL')
+        oneapi_attr_accessor :client_correlator, PartOfUrlFieldConversionRule.new('resourceReference.resourceURL',-2)
 
     end
 
