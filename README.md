@@ -73,7 +73,7 @@ If you want to send message with special characters, this is how you prepare you
 	sms = OneApi::SMSRequest.new
 	sms.sender_address = '38598123456'
 	sms.address = destination_address
-	sms.message = 'Türkçesi bu yönünden dolayı diğer Türk dil42leriyle ortak ya da ayrık bulunan onlarca eke sahiptir.'
+	sms.message = 'Some text in Turkish'
 	sms.callback_data = 'Any string'
 	sms.language = language
 

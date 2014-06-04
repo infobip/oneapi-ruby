@@ -38,7 +38,8 @@ language.use_locking_shift = false
 sms = OneApi::SMSRequest.new
 sms.sender_address = '38598123456'
 sms.address = destination_address
-sms.message = 'Türkçesi bu yönünden dolayı diğer Türk dil42leriyle ortak ya da ayrık bulunan onlarca eke sahiptir.'
+# Add message text in Turkish
+sms.message = '...'
 sms.callback_data = 'Any string'
 sms.language = language
 
