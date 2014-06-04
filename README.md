@@ -53,6 +53,32 @@ When the delivery notification is pushed to your server as a HTTP POST request, 
     delivery_info = OneApi::SmsClient.unserialize_delivery_status(body)
 
 
+Sending message with special characters example
+-----------------------
+
+If you want to send message with special characters, this is how you prepare your message:
+
+	#Create Language object
+	language = OneApi::Language.new
+
+	#set specific language code
+	language.language_code = 'TR'
+
+	#use single shift table for specific language ('false' or 'true')
+	language.use_single_shift = true
+
+	#use locking shift table for specific language ('false' or 'true')
+	language.use_locking_shift = false
+
+	sms = OneApi::SMSRequest.new
+	sms.sender_address = '38598123456'
+	sms.address = destination_address
+	sms.message = 'Türkçesi bu yönünden dolayı diğer Türk dil42leriyle ortak ya da ayrık bulunan onlarca eke sahiptir.'
+	sms.callback_data = 'Any string'
+	sms.language = language
+
+Currently supported languages (with their language codes) are: `Spanish - "SP"`, `Portuguese - "PT"`, `Turkish - "TR"`.
+
 HLR example
 -----------------------
 
