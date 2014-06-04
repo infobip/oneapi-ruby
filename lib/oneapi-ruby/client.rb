@@ -2,6 +2,7 @@
 require 'net/http'
 require 'net/https'
 require "base64"
+require 'json'
 
 require_relative 'objects'
 require_relative 'models'
@@ -53,6 +54,7 @@ module OneApi
 
         def prepare_headers(request)
             request["User-Agent"] = "OneApi-ruby-#{OneApi::VERSION}"
+            request["Content-Type"] = "application/json"
             if @oneapi_authentication and @oneapi_authentication.ibsso_token
                 request['Authorization'] = "IBSSO #{@oneapi_authentication.ibsso_token}"
             else
@@ -105,8 +107,8 @@ module OneApi
             if http_method == 'GET'
                 request = Net::HTTP::Get.new("#{uri.request_uri}?#{urlencode(params)}")
             elsif http_method == 'POST'
-                request = Net::HTTP::Post.new(uri.request_uri)
-                request.set_form_data(params)
+              request = Net::HTTP::Post.new(uri.request_uri)
+              request.body = params.to_json
             end
 
             http = Net::HTTP.new(uri.host, uri.port)
@@ -119,7 +121,6 @@ module OneApi
 
             prepare_headers(request)
             response = http.request(request)
-            
             puts "response = #{response.body}"
 
             return is_success(response), response.body
@@ -153,6 +154,7 @@ module OneApi
 
             if @raise_exceptions and !result.is_success
                 raise "#{result.exception.message_id}: #{result.exception.text} [#{result.exception.variables}]"
+
             end
 
             result
@@ -186,8 +188,15 @@ module OneApi
             if sms.callback_data
                 params['callbackData'] = sms.callback_data
             end
+            if sms.language
+              params['language'] = {
+                  'languageCode' => sms.language.language_code,
+                  'useSingleShift' => sms.language.use_single_shift,
+                  'useLockingShift' => sms.language.use_locking_shift
+              }
+            end
 
-            is_success, result = execute_POST(
+        is_success, result = execute_POST(
                     "/1/smsmessaging/outbound/#{sms.sender_address}/requests",
                     params
             )

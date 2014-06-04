@@ -44,6 +44,7 @@ module OneApi
         end
 
         def to_json(value)
+
             # TODO
         end
 
@@ -99,7 +100,7 @@ module OneApi
     end
 	
 	class PartOfUrlFieldConversionRule < FieldConversionRule
-        def initialize(json_field_name=nil,part_index)
+        def initialize(json_field_name=nil, part_index=nil)
             super(json_field_name)
 			@part_index = part_index;
         end

@@ -35,6 +35,14 @@ module OneApi
     # Messaging:
     # ----------------------------------------------------------------------------------------------------
 
+    class Language < OneApiModel
+
+      oneapi_attr_accessor :language_code, FieldConversionRule.new(:languageCode)
+      oneapi_attr_accessor :use_single_shift, FieldConversionRule.new(:useSingleShift)
+      oneapi_attr_accessor :use_locking_shift, FieldConversionRule.new(:useLockingShift)
+
+    end
+
     class SMSRequest < OneApiModel
 
         oneapi_attr_accessor :sender_address, FieldConversionRule.new(:senderAddress)
@@ -44,6 +52,7 @@ module OneApi
         oneapi_attr_accessor :client_correlator, FieldConversionRule.new(:clientCorrelator)
         oneapi_attr_accessor :notify_url, FieldConversionRule.new(:notifyUrl)
         oneapi_attr_accessor :callback_data, FieldConversionRule.new()
+        oneapi_attr_accessor :language, ObjectFieldConverter.new(Language,'language')
 
     end
 
