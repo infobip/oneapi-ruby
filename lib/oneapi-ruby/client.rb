@@ -98,7 +98,7 @@ module OneApi
 
         def execute_request(http_method, url, params)
             rest_url = get_rest_url(url)
-            uri = URI(rest_url)
+            uri = URI(URI.encode(rest_url))
 
             if Utils.empty(params)
                 params = {}
