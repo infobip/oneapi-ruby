@@ -1,3 +1,16 @@
+## ⚠️ Deprecated
+
+**This repository is deprecated and no longer actively maintained, it will be archived in the near future.**
+
+You’re still welcome to browse or fork the code, but issues and pull requests will not be monitored.
+
+There is currently **no active Ruby-based alternative** available. However, similar functionality is available in other languages:
+* Java: [infobip-api-java-client](https://github.com/infobip/infobip-api-java-client)
+* C#: [infobip-api-csharp-client](https://github.com/infobip/infobip-api-csharp-client)
+* Python: [infobip-api-python-client](https://github.com/infobip/infobip-api-python-client)
+* PHP: [infobip-api-php-client](https://github.com/infobip/infobip-api-php-client)
+* Go: [infobip-api-go-client](https://github.com/infobip/infobip-api-go-client)
+
 OneApi ruby client
 ============================
 
